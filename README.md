@@ -65,6 +65,9 @@ Name of the outputted file
 ### manifest:
 *OPTIONAL*: You can specify the oath to your manifest and the plugin with use it for injections
 
+### verbose:
+For debug, lots of logs will be displayed
+
 TODO:
 - tests
 - More cases
