@@ -11,7 +11,7 @@ plugins: [
             publicPath: '/dist/',
             outputPath: 'assets/',
             outName: 'index.html',
-            manifest: 'assets/manifest.json'
+            manifest: 'assets/manifest.json' //OPTIONAL
         })
     ]
 ```
