@@ -35,18 +35,21 @@ module.exports = class InjectPlugin {
                     }
                 });
             } else {
-                compilation.chunks[0].files.filter(file => file.split('.')[file.split('.').length -1] !== 'map').map(file => {
-                    switch(file.split('.')[file.split('.').length -1]) {
-                        case 'js':
-                            scripts += `<script src="${publicPath}${file}" type="text/javascript"></script>`;
-                            break;
-                        case 'css':
-                            styles += `<link href="${publicPath}${file}" rel="stylesheet" media="screen" title="no title" charset="utf-8">`;
-                            break;
-                    }
+                compilation.chunks.map((chunk, i) => {
+                    chunk.files.filter(file => file.split('.')[file.split('.').length -1] !== 'map').map(file => {
+                        switch(file.split('.')[file.split('.').length -1]) {
+                            case 'js':
+                                console.log(file)
+                                scripts += `${i === 0 ? '' : '\n'}<script src="${publicPath}${file}" type="text/javascript"></script>`;
+                                break;
+                            case 'css':
+                                styles += `<link href="${publicPath}${file}" rel="stylesheet" media="screen" title="no title" charset="utf-8">`;
+                                break;
+                        }
+                    })
                 })
             }
-            console.log('hey')
+           console.log(scripts)
             let htmlOutput = html.replace (/<!-- inject js -->/i, scripts).replace (/<!-- inject css -->/i, styles);
             if (verbose) {
                 console.log('-----');

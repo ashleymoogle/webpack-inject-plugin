@@ -35,11 +35,8 @@ function webpackCompile(webpackOpts, opts, cb) {
     compiler.run(function(err, stats){
         var injected;
         try {
-            console.log(injectPath)
             injected = fs.readFileSync( injectPath, "utf8");
-            console.log(injected)
         } catch (e) {
-            console.log(err);
             injected = null
         }
 
@@ -72,7 +69,38 @@ describe('InjectPlugin', function() {
                 ]
             }, {}, function (html) {
                 expect(html).toBeDefined();
-                expect(html).toEqual(`<html lang="en"><script src="main.js" type="text/javascript"></script></html>`);
+                expect(html).toEqual(
+`<html lang="en">
+<script src="main.js" type="text/javascript"></script>
+</html>`
+                );
+
+                done();
+            });
+        });
+
+        it('outputs a html from multiple entrypoints', function (done) {
+            webpackCompile({
+                context: __dirname,
+                entry: {
+                    one: './fixtures/index.js',
+                    two: './fixtures/index-le-second.js'
+                },
+                plugins: [
+                    new plugin({
+                        in: path.join(__dirname, './fixtures/index-one.html'),
+                        publicPath: '',
+                        outputPath: '/spec/out',
+                        outName: 'index.html'
+                    })
+                ]
+            }, {}, function (html) {
+                expect(html).toBeDefined();
+                expect(html).toEqual(
+                    `<html lang="en">
+<script src="one.js" type="text/javascript"></script>
+<script src="two.js" type="text/javascript"></script>
+</html>`);
 
                 done();
             });
