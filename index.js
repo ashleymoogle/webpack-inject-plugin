@@ -7,9 +7,9 @@ module.exports = class InjectPlugin {
         this.options = options;
     }
     apply(compiler) {
-        const manifest = JSON.parse(fs.readFileSync(this.options.manifest));
-        const htmlFileName = this.options.in;
-        const html = fs.readFileSync(path.join(path.resolve("."), htmlFileName), "utf8");
+        const manifest = this.options && this.options.manifest ? JSON.parse(fs.readFileSync(this.options.manifest)) : null;
+        const htmlFileName = this.options.in || '';
+        const html = fs.readFileSync( htmlFileName, "utf8");
         const publicPath = this.options.publicPath || '';
         let scripts = '';
         let styles = '';
@@ -33,7 +33,7 @@ module.exports = class InjectPlugin {
                 });
             } else {
                 compilation.chunks[0].files.filter(file => file.split('.')[file.split('.').length -1] !== 'map').map(file => {
-                    switch(val.split('.')[val.split('.').length -1]) {
+                    switch(file.split('.')[file.split('.').length -1]) {
                         case 'js':
                             scripts += `<script src="${publicPath}${file}" type="text/javascript"></script>`;
                             break;
@@ -43,6 +43,7 @@ module.exports = class InjectPlugin {
                     }
                 })
             }
+            console.log('hey')
             let htmlOutput = html.replace (/<!-- inject js -->/i, scripts).replace (/<!-- inject css -->/i, styles);
             if (this.options.verbose) {
                 console.log('-----');
