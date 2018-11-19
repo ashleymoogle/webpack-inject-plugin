@@ -39,7 +39,6 @@ module.exports = class InjectPlugin {
                     chunk.files.filter(file => file.split('.')[file.split('.').length -1] !== 'map').map(file => {
                         switch(file.split('.')[file.split('.').length -1]) {
                             case 'js':
-                                console.log(file)
                                 scripts += `${i === 0 ? '' : '\n'}<script src="${publicPath}${file}" type="text/javascript"></script>`;
                                 break;
                             case 'css':

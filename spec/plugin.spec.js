@@ -70,11 +70,10 @@ describe('InjectPlugin', function() {
             }, {}, function (html) {
                 expect(html).toBeDefined();
                 expect(html).toEqual(
-`<html lang="en">
+                    `<html lang="en">
 <script src="main.js" type="text/javascript"></script>
 </html>`
                 );
-
                 done();
             });
         });
