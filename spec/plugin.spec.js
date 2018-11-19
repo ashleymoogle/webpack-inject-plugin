@@ -39,7 +39,7 @@ function webpackCompile(webpackOpts, opts, cb) {
             injected = fs.readFileSync( injectPath, "utf8");
             console.log(injected)
         } catch (e) {
-            console.log(err)
+            console.log(err);
             injected = null
         }
 
@@ -49,7 +49,7 @@ function webpackCompile(webpackOpts, opts, cb) {
 
         cb(injected, stats);
     });
-};
+}
 
 describe('InjectPlugin', function() {
 

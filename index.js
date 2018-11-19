@@ -13,11 +13,14 @@ module.exports = class InjectPlugin {
         const publicPath = this.options.publicPath || '';
         let scripts = '';
         let styles = '';
+        const verbose = this.options.verbose || false;
         const emit = (compilation) => {
-            console.log(compilation.hash);
-            console.log(compilation.chunks[0].files.filter(file => file.split('.')[file.split('.').length -1] !== 'map'));
+            if (verbose) {
+                console.log(compilation.hash);
+                console.log(compilation.chunks[0].files.filter(file => file.split('.')[file.split('.').length -1] !== 'map'));
+            }
             if(manifest) {
-                if (this.options.verbose) {
+                if (verbose) {
                     console.log(manifest);
                 }
                 _.map(manifest, (key, val) => {
@@ -45,7 +48,7 @@ module.exports = class InjectPlugin {
             }
             console.log('hey')
             let htmlOutput = html.replace (/<!-- inject js -->/i, scripts).replace (/<!-- inject css -->/i, styles);
-            if (this.options.verbose) {
+            if (verbose) {
                 console.log('-----');
                 console.log('html output:');
                 console.log(htmlOutput);
