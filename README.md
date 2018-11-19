@@ -5,7 +5,11 @@ This plugin is useful when you have hashed bundles and a HTML entry point, it in
 ## usage: 
 in your `webpack.config.js`
 ```js
-plugins: [
+const config = {
+    entry: {
+        app: path.resolve(__dirname, "src"),
+    },
+    plugin: [
         new InjectPlugin({
             in: 'src/index.html',
             publicPath: '/dist/',
@@ -14,6 +18,7 @@ plugins: [
             manifest: 'assets/manifest.json' //OPTIONAL
         })
     ]
+}
 ```
 
 in your HTML entry point add `<!-- inject js -->` where you want your ouputted files to be.
