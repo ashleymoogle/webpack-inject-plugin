@@ -11,7 +11,7 @@ plugins: [
             publicPath: '/dist/',
             outputPath: 'assets/',
             outName: 'index.html',
-            manifest: 'assets/manifest.json'
+            manifest: 'assets/manifest.json' //OPTIONAL
         })
     ]
 ```
@@ -64,6 +64,9 @@ Name of the outputted file
 
 ### manifest:
 *OPTIONAL*: You can specify the oath to your manifest and the plugin with use it for injections
+
+### verbose:
+For debug, lots of logs will be displayed
 
 TODO:
 - tests
