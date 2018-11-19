@@ -48,7 +48,6 @@ module.exports = class InjectPlugin {
                     })
                 })
             }
-           console.log(scripts)
             let htmlOutput = html.replace (/<!-- inject js -->/i, scripts).replace (/<!-- inject css -->/i, styles);
             if (verbose) {
                 console.log('-----');
