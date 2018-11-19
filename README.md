@@ -9,7 +9,7 @@ const config = {
     entry: {
         app: path.resolve(__dirname, "src"),
     },
-    plugin: [
+    plugins: [
         new InjectPlugin({
             in: 'src/index.html',
             publicPath: '/dist/',
