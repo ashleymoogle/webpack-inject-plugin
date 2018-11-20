@@ -173,7 +173,7 @@ describe('InjectPlugin', function() {
                         publicPath: '',
                         outputPath: '/spec/out',
                         outName: 'index.html',
-                        manifest:'/spec/out/manifest.json',
+                        manifest:path.join(__dirname, '/out/manifest.json'),
                         verbose: true
                     })
                 ]

@@ -7,7 +7,7 @@ module.exports = class InjectPlugin {
         this.options = options;
     }
     apply(compiler) {
-        const manifest = this.options && this.options.manifest ? JSON.parse(fs.readFileSync(path.join(__dirname, this.options.manifest))) : null;
+        const manifest = this.options && this.options.manifest ? JSON.parse(fs.readFileSync(this.options.manifest)) : null;
         const htmlFileName = this.options.in || '';
         const publicPath = this.options.publicPath || '';
         let scripts = '';
