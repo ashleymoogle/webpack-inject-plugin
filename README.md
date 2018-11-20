@@ -3,8 +3,15 @@ This plugin is useful when you have hashed bundles and a HTML entry point, it in
 
 *WARNING*: For dev purpose you should NOT use hashed bundles because webpack dev server will NOT rewrite them and the memory taken will keep piling up.
 ## usage: 
+
+```js
+yarn add webpack-inject-bundles-plugin
+```
+
 in your `webpack.config.js`
 ```js
+import InjectPlugin from 'webpack-inject-bundles-plugin'
+
 const config = {
     entry: {
         app: path.resolve(__dirname, "src"),
@@ -73,6 +80,3 @@ Name of the outputted file
 ### verbose:
 For debug, lots of logs will be displayed
 
-TODO:
-- tests
-- More cases

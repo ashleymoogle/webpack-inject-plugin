@@ -1,7 +1,7 @@
 {
-  "name": "webpack-inject-plugin",
-  "version": "0.0.1",
-  "description": "Webpack plugin to inject bundles in html entry point.",
+  "name": "webpack-inject-bundles-plugin",
+  "version": "0.1.0",
+  "description": "Webpack plugin to inject bundles (with or without hash) in an html entry point.",
   "main": "index.js",
   "repository": "https://github.com/ashleymoogle/webpack-inject.git",
   "author": "Romain Bonhomme <romain.bonhomme89@gmail.com>",
