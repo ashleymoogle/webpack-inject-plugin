@@ -4,7 +4,7 @@ This plugin is useful when you have hashed bundles and a HTML entry point, it in
 *WARNING*: For dev purpose you should NOT use hashed bundles because webpack dev server will NOT rewrite them and the memory taken will keep piling up.
 ## usage: 
 
-```js
+```bash
 yarn add webpack-inject-bundles-plugin
 ```
 
