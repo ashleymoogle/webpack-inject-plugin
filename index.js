@@ -7,30 +7,35 @@ module.exports = class InjectPlugin {
         this.options = options;
     }
     apply(compiler) {
-        const manifest = this.options && this.options.manifest ? JSON.parse(fs.readFileSync(this.options.manifest)) : null;
+        const manifest = this.options && this.options.manifest ? JSON.parse(fs.readFileSync(path.join(__dirname, this.options.manifest))) : null;
         const htmlFileName = this.options.in || '';
-        const html = fs.readFileSync( htmlFileName, "utf8");
         const publicPath = this.options.publicPath || '';
         let scripts = '';
         let styles = '';
         const verbose = this.options.verbose || false;
         const emit = (compilation) => {
+            if(htmlFileName === '') {
+                console.log('no html file specified');
+                throw 'no html file specified'
+            }
+            const html = fs.readFileSync( htmlFileName, "utf8");
             if (verbose) {
                 console.log(compilation.hash);
                 console.log(compilation.chunks[0].files.filter(file => file.split('.')[file.split('.').length -1] !== 'map'));
             }
+            let i = 0;
+            let y = 0;
             if(manifest) {
-                if (verbose) {
-                    console.log(manifest);
-                }
                 _.map(manifest, (key, val) => {
                     //console.log(key, val)
                     switch(val.split('.')[val.split('.').length -1]) {
                         case 'js':
-                            scripts += `<script src="${publicPath}${key}" type="text/javascript"></script>`;
+                            scripts += `${i === 0 ? '' : '\n'}<script src="${publicPath}${key}" type="text/javascript"></script>`;
+                            i++;
                             break;
                         case 'css':
-                            styles += `<link href="${publicPath}${key}" rel="stylesheet" media="screen" title="no title" charset="utf-8">`;
+                            styles += `${y === 0 ? '' : '\n'}<link href="${publicPath}${key}" rel="stylesheet" media="screen" title="no title" charset="utf-8">`;
+                            y++;
                             break;
                     }
                 });
@@ -40,9 +45,11 @@ module.exports = class InjectPlugin {
                         switch(file.split('.')[file.split('.').length -1]) {
                             case 'js':
                                 scripts += `${i === 0 ? '' : '\n'}<script src="${publicPath}${file}" type="text/javascript"></script>`;
+                                i++;
                                 break;
                             case 'css':
-                                styles += `<link href="${publicPath}${file}" rel="stylesheet" media="screen" title="no title" charset="utf-8">`;
+                                styles += `${y === 0 ? '' : '\n'}<link href="${publicPath}${file}" rel="stylesheet" media="screen" title="no title" charset="utf-8">`;
+                                y++;
                                 break;
                         }
                     })
