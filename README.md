@@ -90,7 +90,7 @@ in package.json
     "scripts": {
         "build": "webpack --progress",
         "start": "yarn build && webpack-dev-server --host 0.0.0.0 --env='dev-serv'",
-        "buildProd": "rm -rf assets/dist/* && rm -r assets/index.html && yarn build && webpack --env=production"
+        "buildProd": yarn build && webpack --env=production"
     },
 ```
 In webpack config
