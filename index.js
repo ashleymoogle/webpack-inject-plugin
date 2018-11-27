@@ -55,7 +55,7 @@ module.exports = class InjectPlugin {
                     })
                 })
             }
-            let htmlOutput = html.replace (/<!-- inject js -->/i, scripts).replace (/<!-- inject css -->/i, styles);
+            let htmlOutput = html.replace (/<!-- inject js -->([\s\S]*)<!-- end inject -->/i, scripts).replace (/<!-- inject css -->([\s\S]*)<!-- end inject -->/i, styles);
             if (verbose) {
                 console.log('-----');
                 console.log('html output:');

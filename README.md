@@ -28,8 +28,8 @@ const config = {
 }
 ```
 
-in your HTML entry point add `<!-- inject js -->` where you want your ouputted files to be.
-You can also add `<!-- inject css -->` if you use extracttext or minicssextract
+in your HTML entry point add `<!-- inject js -->` and `<!-- end inject -->` where you want your ouputted files to be.
+You can also add `<!-- inject css -->` and `<!-- end inject -->` if you use extracttext or minicssextract
 ```html
 <!DOCTYPE html>
 <html>
@@ -38,7 +38,7 @@ You can also add `<!-- inject css -->` if you use extracttext or minicssextract
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>My app</title>
         <noscript id="deferred-styles">
-            <!-- inject css -->
+            <!-- inject css --><!-- end inject -->
         </noscript>
         <script>
             var loadDeferredStyles = function() {
@@ -57,6 +57,7 @@ You can also add `<!-- inject css -->` if you use extracttext or minicssextract
     <body>
     <div id="app"></div>
         <!-- inject js -->
+        <!-- end inject -->
     </body>
 </html>
 ```
@@ -79,4 +80,36 @@ Name of the outputted file
 
 ### verbose:
 For debug, lots of logs will be displayed
+
+## Known issues:
+Scripts keeps piling up with webpack-dev-server, to avoid that you should create a script that builds with a parameter and then another one for your server
+Example:
+
+in package.json
+```js
+    "scripts": {
+        "build": "webpack --progress",
+        "start": "yarn build && webpack-dev-server --host 0.0.0.0 --env='dev-serv'",
+        "buildProd": "rm -rf assets/dist/* && rm -r assets/index.html && yarn build && webpack --env=production"
+    },
+```
+In webpack config
+```js
+    const SERVE = process.env.npm_lifecycle_event || 'build';
+    if ((SERVE === 'start') || (SERVE === undefined)) {
+        console.log('start dev server');
+        conf = merge(config, {
+            debug: true,
+            plugins: [
+                new InjectPlugin({
+                    //...options
+                })
+            }) ],
+        devtool: 'eval'
+    });
+
+    conf = merge(config, developmentConfig.devServer())
+    }
+},
+```
 
